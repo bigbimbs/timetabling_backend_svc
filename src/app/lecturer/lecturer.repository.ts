@@ -40,29 +40,42 @@ export class LecturerRepository {
   }
 
   async deleteLecturer(lecturer: LecturersEntity) {
-    const availabilityIds = lecturer.availableDaysAndTimes.map(
-      (availability) => availability.id,
-    );
+    const timeIds = [];
+    const availabilityIds = [];
+    lecturer.availableDaysAndTimes.forEach((availability) => {
+      availabilityIds.push(availability.id);
+      availability.time.forEach((tm) => {
+        timeIds.push(tm.id);
+      });
+    });
+
     if (availabilityIds.length > 0) {
-      await this.availabilityRepository.deleteAvailability(availabilityIds);
+      await this.availabilityRepository.deleteAvailability(
+        availabilityIds,
+        timeIds,
+      );
     }
 
     return this.lecturerRepository.remove(lecturer);
   }
 
   async deleteLecturers(lecturers: LecturersEntity[]) {
+    const timeIds = [];
     const availabilityIds = [];
     lecturers.forEach((lecturer) => {
-      if ('availableDaysAndTimes' in lecturer) {
-        if (lecturer.availableDaysAndTimes.length > 0) {
-          lecturer.availableDaysAndTimes.forEach((availability) => {
-            availabilityIds.push(availability.id);
-          });
-        }
-      }
+      lecturer.availableDaysAndTimes.forEach((availability) => {
+        availabilityIds.push(availability.id);
+        availability.time.forEach((tm) => {
+          timeIds.push(tm.id);
+        });
+      });
     });
+
     if (availabilityIds.length > 0) {
-      await this.availabilityRepository.deleteAvailability(availabilityIds);
+      await this.availabilityRepository.deleteAvailability(
+        availabilityIds,
+        timeIds,
+      );
     }
 
     return this.lecturerRepository.remove(lecturers);

@@ -41,12 +41,20 @@ export class VenueRepository {
   }
 
   async deleteVenue(venue: VenuesEntity) {
-    const availabilityIds = venue.availableDaysAndTimes.map(
-      (availability) => availability.id,
-    );
+    const timeIds = [];
+    const availabilityIds = [];
+    venue.availableDaysAndTimes.forEach((availability) => {
+      availabilityIds.push(availability.id);
+      availability.time.forEach((tm) => {
+        timeIds.push(tm.id);
+      });
+    });
 
     if (availabilityIds.length > 0) {
-      await this.availabilityRepository.deleteAvailability(availabilityIds);
+      await this.availabilityRepository.deleteAvailability(
+        availabilityIds,
+        timeIds,
+      );
     }
     return this.venueRepository.remove(venue);
   }
