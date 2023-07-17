@@ -21,6 +21,6 @@ import { DepartmentController } from './department.controller';
     DepartmentService,
   ],
   controllers: [DepartmentController],
-  exports: [DepartmentService, DepartmentModule],
+  exports: [DepartmentService, DepartmentRepository],
 })
 export class DepartmentModule {}

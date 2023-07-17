@@ -50,4 +50,18 @@ export class DepartmentRepository {
     }
     return this.departmentRepository.remove(department);
   }
+
+  async deleteDepartments(department: DepartmentEntity[]) {
+    const levelIds = [];
+
+    department.forEach((dept) => {
+      dept.levels.forEach((level) => {
+        levelIds.push(level.id);
+      });
+    });
+    if (levelIds.length > 0) {
+      await this.levelRepository.delete(levelIds);
+    }
+    return this.departmentRepository.remove(department);
+  }
 }
