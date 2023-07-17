@@ -1,8 +1,9 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, Min } from 'class-validator';
 
 export class CreateFacultyDto {
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   facultyName: string;
 }
 
@@ -13,6 +14,7 @@ export class EditFacultyDto {
 
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   facultyName: string;
 }
 

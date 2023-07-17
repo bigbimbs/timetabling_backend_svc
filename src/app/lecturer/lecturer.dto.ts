@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   ArrayMinSize,
   IsOptional,
+  Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -32,10 +33,12 @@ class AvailableDayDto {
 export class CreateLecturerDto {
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   name: string;
 
   @IsString()
   @IsNotEmpty()
+  @Min(2)
   initials: string;
 
   @IsArray()
@@ -54,11 +57,13 @@ export class EditLecturerDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   name: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @Min(2)
   initials: string;
 
   @IsOptional()

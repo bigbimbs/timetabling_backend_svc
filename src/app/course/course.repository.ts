@@ -22,6 +22,7 @@ export class CourseRepository {
       where: { user: { privateApiKey } },
       relations: [
         'departments',
+        'departments.faculty',
         'lecturers',
         'lecturers.availableDaysAndTimes',
         'lecturers.availableDaysAndTimes.time',

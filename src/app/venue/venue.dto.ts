@@ -34,6 +34,7 @@ class AvailableDayDto {
 export class CreateVenueDto {
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   name: string;
 
   @IsNumber({})
@@ -56,10 +57,12 @@ export class EditVenueDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @Min(3)
   name: string;
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({})
+  @Min(1)
   capacity: number;
 
   @IsOptional()
