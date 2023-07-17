@@ -7,6 +7,7 @@ import {
   IsNotEmpty,
   ArrayMinSize,
   IsOptional,
+  MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -25,6 +26,7 @@ export class CreateDepartmentDto {
 
   @IsString()
   @IsNotEmpty()
+  @MinLength(3)
   departmentName: string;
 
   @IsString()
@@ -47,11 +49,13 @@ export class EditDepartmentDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @MinLength(3)
   departmentName: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @MinLength(3)
   code: string;
 
   @IsOptional()

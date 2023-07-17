@@ -7,18 +7,18 @@ import {
   ArrayMinSize,
   ArrayNotEmpty,
   IsIn,
-  Min,
+  MinLength,
 } from 'class-validator';
 
 export class CreateCourseDto {
   @IsString({ message: 'course name is required' })
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   name: string;
 
   @IsString({ message: 'course code is required' })
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   code: string;
 
   @IsNumber()
@@ -56,13 +56,13 @@ export class EditCourseDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   name: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   code: string;
 
   @IsOptional()

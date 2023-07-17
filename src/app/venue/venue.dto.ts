@@ -7,7 +7,7 @@ import {
   IsNotEmpty,
   ArrayMinSize,
   IsOptional,
-  Min,
+  MinLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -34,11 +34,11 @@ class AvailableDayDto {
 export class CreateVenueDto {
   @IsString()
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   name: string;
 
   @IsNumber({})
-  @Min(1)
+  @MinLength(1)
   capacity: number;
 
   @IsArray()
@@ -57,12 +57,12 @@ export class EditVenueDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @Min(3)
+  @MinLength(3)
   name: string;
 
   @IsOptional()
   @IsNumber({})
-  @Min(1)
+  @MinLength(1)
   capacity: number;
 
   @IsOptional()
