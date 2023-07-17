@@ -20,7 +20,12 @@ export class CourseRepository {
   async getAllCourses(privateApiKey: string) {
     return this.courseRepository.find({
       where: { user: { privateApiKey } },
-      relations: ['departments', 'lecturers'],
+      relations: [
+        'departments',
+        'lecturers',
+        'lecturers.availableDaysAndTimes',
+        'lecturers.availableDaysAndTimes.time',
+      ],
     });
   }
 
