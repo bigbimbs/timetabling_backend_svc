@@ -6,6 +6,7 @@ import {
   IsArray,
   ArrayMinSize,
   ArrayNotEmpty,
+  IsIn,
 } from 'class-validator';
 
 export class CreateCourseDto {
@@ -20,6 +21,9 @@ export class CreateCourseDto {
   @IsNumber()
   @IsNotEmpty()
   level: number;
+
+  @IsIn([1, 2])
+  semester: number;
 
   @IsOptional()
   @IsString({ message: 'course name is required' })
@@ -60,6 +64,10 @@ export class EditCourseDto {
   @IsNumber()
   @IsNotEmpty()
   level: number;
+
+  @IsOptional()
+  @IsIn([1, 2])
+  semester: number;
 
   @IsOptional()
   @IsString()

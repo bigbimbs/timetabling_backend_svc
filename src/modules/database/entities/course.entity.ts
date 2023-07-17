@@ -20,6 +20,9 @@ export class CourseEntity {
   @Column({ length: 10, type: 'char', nullable: false })
   code: string;
 
+  @Column({ type: 'smallint', nullable: false, default: 1 })
+  semester: number;
+
   @Column({ type: 'smallint', nullable: false })
   level: number;
 

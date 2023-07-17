@@ -8,6 +8,7 @@ export class ICreateCourse {
   name: string;
   code: string;
   level: number;
+  semester: number;
   description?: string;
   percentageAllowedToBeFilled?: number;
   departments: DepartmentEntity[];
@@ -20,6 +21,7 @@ export class IEditCourse {
   name?: string;
   code?: string;
   level?: number;
+  semester?: number;
   description?: string;
   percentageAllowedToBeFilled?: number;
   departments: DepartmentEntity[];
