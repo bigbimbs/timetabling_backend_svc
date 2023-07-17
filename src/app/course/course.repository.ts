@@ -18,7 +18,14 @@ export class CourseRepository {
   async findCourse(privateApiKey: string, courseId: string) {
     return this.courseRepository.findOne({
       where: { user: { privateApiKey }, id: courseId },
-      relations: ['departments', 'lecturers'],
+      relations: [
+        'departments',
+        'departments.faculty',
+        'departments.levels',
+        'lecturers',
+        'lecturers.availableDaysAndTimes',
+        'lecturers.availableDaysAndTimes.time',
+      ],
     });
   }
   async getAllCourses(privateApiKey: string) {
