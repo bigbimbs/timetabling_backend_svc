@@ -23,6 +23,7 @@ export class CourseRepository {
       relations: [
         'departments',
         'departments.faculty',
+        'departments.levels',
         'lecturers',
         'lecturers.availableDaysAndTimes',
         'lecturers.availableDaysAndTimes.time',
