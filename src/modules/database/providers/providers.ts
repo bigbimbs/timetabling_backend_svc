@@ -22,7 +22,9 @@ import {
   DB_TIME_PROVIDER_REPOSITORY_NAME,
   DB_USER_PROVIDER_REPOSITORY_NAME,
   DB_VENUE_PROVIDER_REPOSITORY_NAME,
+  DB_CONFIGURATION_PROVIDER_REPOSITORY_NAME,
 } from '../constants';
+import { ConfigurationEntity } from '../entities/configuration.entity';
 
 export const availabilityProvider = {
   provide: DB_AVAILABILITY_PROVIDER_REPOSITORY_NAME,
@@ -81,5 +83,12 @@ export const timeProvider = {
 export const userProvider = {
   provide: DB_USER_PROVIDER_REPOSITORY_NAME,
   useFactory: (dataSource: DataSource) => dataSource.getRepository(UserEntity),
+  inject: [DB_PROVIDE_NAME],
+};
+
+export const configurationProvider = {
+  provide: DB_CONFIGURATION_PROVIDER_REPOSITORY_NAME,
+  useFactory: (dataSource: DataSource) =>
+    dataSource.getRepository(ConfigurationEntity),
   inject: [DB_PROVIDE_NAME],
 };

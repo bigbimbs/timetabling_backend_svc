@@ -1,13 +1,17 @@
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { TimeEntity } from './time.entity';
 import { VenuesEntity } from './venue.entity';
 import { LecturersEntity } from './lecturer.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('availability')
 export class AvailabilityEntity {
@@ -28,4 +32,14 @@ export class AvailabilityEntity {
     (lecturers) => lecturers.availableDaysAndTimes,
   )
   lecturerAvailability: LecturersEntity;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Exclude()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

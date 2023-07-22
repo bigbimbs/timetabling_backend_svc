@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 import { LecturersEntity } from './lecturer.entity';
 import { DepartmentEntity } from './department.entity';
 import { CourseEntity } from './course.entity';
@@ -42,25 +50,13 @@ export class UserEntity {
   @OneToMany(() => FacultyEntity, (faculty) => faculty.user, { cascade: true })
   faculties: FacultyEntity[];
 
-  // @CreateDateColumn({
-  //   precision: null,
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP',
-  // })
-  // createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  // @UpdateDateColumn({
-  //   precision: null,
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP',
-  // })
-  // updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-  // @Exclude()
-  // @DeleteDateColumn({
-  //   precision: null,
-  //   type: 'timestamp',
-  //   default: () => 'CURRENT_TIMESTAMP',
-  // })
-  // deletedAt: Date;
+  @Exclude()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

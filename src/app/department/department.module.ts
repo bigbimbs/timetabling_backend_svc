@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ErrorHelper } from 'src/core/helpers';
 import { DatabaseModule } from 'src/modules/database/connections/database.module';
 import {
@@ -12,7 +12,7 @@ import { DepartmentService } from './department.service';
 import { DepartmentController } from './department.controller';
 
 @Module({
-  imports: [DatabaseModule, UserModule, FacultyModule],
+  imports: [DatabaseModule, UserModule, forwardRef(() => FacultyModule)],
   providers: [
     departmentProvider,
     DepartmentRepository,

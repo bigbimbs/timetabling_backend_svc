@@ -6,12 +6,14 @@ import { UserService } from 'src/app/user/user.service';
 import { FacultyRepository } from './faulty.repository';
 import { CreateFacultyDto, EditFacultyDto } from './faculty.dto';
 import { ICreateFaculty } from './faculty.interface';
+import { DepartmentRepository } from '../department/department.repository';
 
 @Injectable()
 export class FacultyService {
   constructor(
     private readonly facultyRepository: FacultyRepository,
     private userService: UserService,
+    private departmentRepository: DepartmentRepository,
   ) {}
 
   async addFaculty(createFacultyDto: CreateFacultyDto, apiKey: string) {
@@ -55,6 +57,10 @@ export class FacultyService {
     if (!Faculty) {
       ErrorHelper.BadRequestException('No Faculty found');
     }
+    if (Faculty.departments.length > 0) {
+      await this.departmentRepository.deleteDepartments(Faculty.departments);
+    }
+
     return this.facultyRepository.deleteFaculty(Faculty);
   }
 

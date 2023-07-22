@@ -53,16 +53,16 @@ export class FacultyController {
     };
   }
 
-  @Delete('')
-  async deleteFaculty(
-    @Body() body: DeleteFacultyDto,
-    @Query('key') apiKey: string,
-  ) {
-    const data = await this.facultyService.deleteFaculty(body.id, apiKey);
+  // @Delete('')
+  // async deleteFaculty(
+  //   @Body() body: DeleteFacultyDto,
+  //   @Query('key') apiKey: string,
+  // ) {
+  //   const data = await this.facultyService.deleteFaculty(body.id, apiKey);
 
-    return {
-      data,
-      message: 'Faculty deleted',
-    };
-  }
+  //   return {
+  //     data,
+  //     message: 'Faculty deleted',
+  //   };
+  // }
 }

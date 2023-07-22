@@ -13,6 +13,7 @@ export class FacultyRepository {
   async findFaculty(privateApiKey: string, facultyId: string) {
     return this.facultyRepository.findOne({
       where: { user: { privateApiKey }, id: facultyId },
+      relations: ['departments', 'departments.levels'],
     });
   }
 

@@ -1,5 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { DepartmentEntity } from './department.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('level')
 export class LevelEntity {
@@ -14,4 +23,14 @@ export class LevelEntity {
 
   @ManyToOne(() => DepartmentEntity, (department) => department.levels)
   department: DepartmentEntity;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Exclude()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

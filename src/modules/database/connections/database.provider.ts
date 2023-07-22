@@ -12,18 +12,13 @@ import {
   VenuesEntity,
 } from '../entities';
 import { ConfigService } from 'src/core/config/config.service';
+import { ConfigurationEntity } from '../entities/configuration.entity';
 
 export const databaseProviders = [
   {
     provide: DB_PROVIDE_NAME,
     useFactory: async (configService: ConfigService) => {
       const dataSource = new DataSource({
-        // type: 'mysql',
-        // host: 'localhost',
-        // port: 3306,
-        // username: 'admin',
-        // password: 'admin',
-        // database: 'timetabling',
         type: 'mysql',
         host: configService.get('DB_HOST'),
         port: parseInt(configService.get('DB_PORT')),
@@ -40,6 +35,7 @@ export const databaseProviders = [
           TimeEntity,
           UserEntity,
           VenuesEntity,
+          ConfigurationEntity,
         ],
         synchronize: true,
       });

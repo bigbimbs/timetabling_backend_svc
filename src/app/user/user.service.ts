@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common/decorators';
+import { Inject, Injectable } from '@nestjs/common/decorators';
 import { EncryptHelper, ErrorHelper } from 'src/core/helpers';
 import { UserRepository } from './user.repository';
-import { CreateUserDto } from './user.dto';
+import { ConfigurationDto, CreateUserDto } from './user.dto';
 import { Logger } from '@nestjs/common';
+import { DB_CONFIGURATION_PROVIDER_REPOSITORY_NAME } from 'src/modules/database/constants';
+import { ConfigurationEntity } from 'src/modules/database/entities/configuration.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
     private encryptHelper: EncryptHelper,
+    @Inject(DB_CONFIGURATION_PROVIDER_REPOSITORY_NAME)
+    private configurationRepository: Repository<ConfigurationEntity>,
   ) {}
   private logger = new Logger(UserService.name);
 
@@ -41,5 +46,37 @@ export class UserService {
 
   async getAllUsers() {
     return await this.userRepository.getAllUsers();
+  }
+
+  async saveConfiguration(configurationDto: ConfigurationDto, apiKey: string) {
+    const user = await this.validateUser(apiKey);
+
+    const config = await this.configurationRepository.findOne({
+      where: { userId: user.id },
+    });
+
+    if (config) {
+      return await this.configurationRepository.update(
+        { userId: user.id },
+        configurationDto,
+      );
+    }
+
+    return await this.configurationRepository.save({
+      ...configurationDto,
+      userId: user.id,
+    });
+  }
+  async getUserConfiguration(apiKey: string) {
+    const user = await this.validateUser(apiKey);
+
+    const config = await this.configurationRepository.findOne({
+      where: { userId: user.id },
+    });
+
+    if (config) {
+      return config;
+    }
+    ErrorHelper.NotFoundException('No configuration settings');
   }
 }

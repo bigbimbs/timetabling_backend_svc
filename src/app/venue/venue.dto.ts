@@ -37,8 +37,8 @@ export class CreateVenueDto {
   @MinLength(3)
   name: string;
 
+  @IsOptional()
   @IsNumber({})
-  @MinLength(1)
   capacity: number;
 
   @IsArray()
@@ -62,7 +62,6 @@ export class EditVenueDto {
 
   @IsOptional()
   @IsNumber({})
-  @MinLength(1)
   capacity: number;
 
   @IsOptional()

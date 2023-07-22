@@ -1,12 +1,16 @@
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { AvailabilityEntity } from './availability.entity';
 import { UserEntity } from './user.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('venue')
 export class VenuesEntity {
@@ -28,4 +32,14 @@ export class VenuesEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.venues)
   user: UserEntity;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Exclude()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

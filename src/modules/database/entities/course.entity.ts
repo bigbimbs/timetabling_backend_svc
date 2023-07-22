@@ -4,7 +4,11 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  CreateDateColumn,
+  DeleteDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { DepartmentEntity } from './department.entity';
 import { LecturersEntity } from './lecturer.entity';
 import { UserEntity } from './user.entity';
@@ -40,4 +44,14 @@ export class CourseEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.courses)
   user: UserEntity;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Exclude()
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

@@ -13,7 +13,7 @@ import { ConfigService } from './core/config/config.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
-    cors: true,
+    cors: false,
   });
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Timetabling API')
